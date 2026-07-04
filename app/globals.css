@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --muted: #737373;
+  --muted-foreground: #a3a3a3;
+  --border: #e5e5e5;
+  --card: #ffffff;
+  --accent: #059669;
+  --accent-foreground: #ffffff;
+  --accent-muted: rgba(5, 150, 105, 0.12);
+  --glow-outer: radial-gradient(
+    circle,
+    rgba(5, 150, 105, 0.1) 0%,
+    rgba(5, 150, 105, 0.065) 14%,
+    rgba(5, 150, 105, 0.038) 28%,
+    rgba(5, 150, 105, 0.02) 42%,
+    rgba(5, 150, 105, 0.009) 56%,
+    rgba(5, 150, 105, 0.003) 68%,
+    transparent 78%
+  );
+  --glow-mid: radial-gradient(
+    circle,
+    rgba(5, 150, 105, 0.13) 0%,
+    rgba(5, 150, 105, 0.085) 18%,
+    rgba(5, 150, 105, 0.045) 36%,
+    rgba(5, 150, 105, 0.018) 52%,
+    rgba(5, 150, 105, 0.006) 64%,
+    transparent 76%
+  );
+  --glow-core: radial-gradient(
+    circle,
+    rgba(5, 150, 105, 0.16) 0%,
+    rgba(5, 150, 105, 0.1) 22%,
+    rgba(5, 150, 105, 0.05) 42%,
+    rgba(5, 150, 105, 0.015) 58%,
+    transparent 72%
+  );
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --muted: #a3a3a3;
+  --muted-foreground: #737373;
+  --border: #262626;
+  --card: #141414;
+  --accent: #34d399;
+  --accent-foreground: #0a0a0a;
+  --accent-muted: rgba(52, 211, 153, 0.12);
+  --glow-outer: radial-gradient(
+    circle,
+    rgba(52, 211, 153, 0.14) 0%,
+    rgba(52, 211, 153, 0.09) 14%,
+    rgba(52, 211, 153, 0.055) 28%,
+    rgba(52, 211, 153, 0.028) 42%,
+    rgba(52, 211, 153, 0.012) 56%,
+    rgba(52, 211, 153, 0.004) 68%,
+    transparent 78%
+  );
+  --glow-mid: radial-gradient(
+    circle,
+    rgba(52, 211, 153, 0.18) 0%,
+    rgba(52, 211, 153, 0.115) 18%,
+    rgba(52, 211, 153, 0.06) 36%,
+    rgba(52, 211, 153, 0.025) 52%,
+    rgba(52, 211, 153, 0.008) 64%,
+    transparent 76%
+  );
+  --glow-core: radial-gradient(
+    circle,
+    rgba(52, 211, 153, 0.22) 0%,
+    rgba(52, 211, 153, 0.14) 22%,
+    rgba(52, 211, 153, 0.07) 42%,
+    rgba(52, 211, 153, 0.02) 58%,
+    transparent 72%
+  );
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-muted: var(--accent-muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--accent-muted);
+  color: var(--foreground);
 }

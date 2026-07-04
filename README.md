@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Website
+
+A minimal, modern portfolio built with Next.js, Tailwind CSS, and Framer Motion. Features dark/light theme support, subtle scroll animations, and one-click Vercel deployment.
+
+## Tech Stack
+
+- **Next.js 16** (App Router)
+- **Tailwind CSS v4**
+- **Framer Motion** — scroll reveals & micro-interactions
+- **next-themes** — dark/light/system theme
+- **Lucide React** — icons
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Editing Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All portfolio content lives in typed data files under `content/`:
 
-## Learn More
+| File | What to edit |
+|------|-------------|
+| `content/site.ts` | Name, role, tagline, bio, email, social links, nav |
+| `content/skills.ts` | Skill categories and items |
+| `content/projects.ts` | Project cards (title, description, tech, links) |
+| `content/experience.ts` | Work history timeline |
 
-To learn more about Next.js, take a look at the following resources:
+No need to touch components — just update these files and redeploy.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy to Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Push this repo to GitHub
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repository
+3. Vercel auto-detects Next.js — click **Deploy**
+4. (Optional) Add a custom domain in Project Settings → Domains
 
-## Deploy on Vercel
+Every push to `main` triggers a production deploy. Pull requests get preview URLs automatically.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/                  # Next.js App Router pages & layout
+components/
+  layout/             # Navbar, Footer, ThemeToggle
+  sections/           # Hero, About, Skills, Projects, Experience, Contact
+  ui/                 # Reusable UI (SectionHeading, ProjectCard, etc.)
+content/              # Portfolio data (edit these!)
+lib/                  # Animation variants
+public/               # Static assets (avatar, images)
+```
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+
+## Customization
+
+- **Accent color**: Edit CSS variables in `app/globals.css` (`--accent`)
+- **Fonts**: Configured in `app/layout.tsx` via `next/font`
+- **Metadata/SEO**: Update `metadata` export in `app/layout.tsx` and URLs in `app/sitemap.ts` / `app/robots.ts`
