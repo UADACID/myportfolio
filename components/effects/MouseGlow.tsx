@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { useTheme } from "next-themes";
 import {
   motion,
   useMotionValue,
@@ -8,7 +9,7 @@ import {
   useSpring,
 } from "framer-motion";
 
-const spring = { damping: 32, stiffness: 90, mass: 0.8 };
+const spring = { damping: 35, stiffness: 80, mass: 0.9 };
 
 function subscribePointer(onStoreChange: () => void) {
   const media = window.matchMedia("(pointer: fine)");
@@ -24,29 +25,31 @@ function getServerPointerSnapshot() {
   return false;
 }
 
+function subscribeMounted() {
+  return () => {};
+}
+
+function getMountedSnapshot() {
+  return true;
+}
+
+function getMountedServerSnapshot() {
+  return false;
+}
+
 const glowLayers = [
-  {
-    size: "h-[640px] w-[640px]",
-    background: "var(--glow-outer)",
-    opacity: { active: 1, idle: 0 },
-    duration: 0.5,
-  },
-  {
-    size: "h-[320px] w-[320px]",
-    background: "var(--glow-mid)",
-    opacity: { active: 1, idle: 0 },
-    duration: 0.4,
-  },
-  {
-    size: "h-36 w-36",
-    background: "var(--glow-core)",
-    opacity: { active: 1, idle: 0 },
-    duration: 0.35,
-  },
+  { size: "h-[400px] w-[400px]", background: "var(--glow-outer)" },
+  { size: "h-20 w-20", background: "var(--glow-core)" },
 ] as const;
 
 export function MouseGlow() {
   const shouldReduceMotion = useReducedMotion();
+  const { resolvedTheme } = useTheme();
+  const mounted = useSyncExternalStore(
+    subscribeMounted,
+    getMountedSnapshot,
+    getMountedServerSnapshot
+  );
   const hasFinePointer = useSyncExternalStore(
     subscribePointer,
     getPointerSnapshot,
@@ -79,7 +82,14 @@ export function MouseGlow() {
     };
   }, [shouldReduceMotion, hasFinePointer, mouseX, mouseY]);
 
-  if (shouldReduceMotion || !hasFinePointer) return null;
+  if (
+    !mounted ||
+    shouldReduceMotion ||
+    !hasFinePointer ||
+    resolvedTheme === "light"
+  ) {
+    return null;
+  }
 
   return (
     <div
@@ -91,8 +101,8 @@ export function MouseGlow() {
           key={layer.size}
           className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full ${layer.size}`}
           style={{ x, y, background: layer.background }}
-          animate={{ opacity: isActive ? layer.opacity.active : layer.opacity.idle }}
-          transition={{ duration: layer.duration, ease: [0.22, 1, 0.36, 1] }}
+          animate={{ opacity: isActive ? 0.7 : 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         />
       ))}
     </div>

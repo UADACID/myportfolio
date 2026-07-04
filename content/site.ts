@@ -2,18 +2,18 @@ export const site = {
   name: "Pratama Setya Aji",
   role: "Mobile & Full Stack Engineer",
   tagline:
-    "8+ years building cross-platform mobile and web applications with React Native, Flutter, TypeScript, and Firebase.",
+    "I build mobile products end to end — from Figma pixels to production on GCP.",
   email: "pratamasetya99@gmail.com",
   location: "Yogyakarta, Indonesia",
   available: true,
   bio: [
-    "Mobile & Full Stack Engineer with 8+ years of experience developing cross-platform mobile and web applications using React Native, Flutter, TypeScript, and Firebase. Skilled in building end-to-end solutions, from user-facing interfaces to backend services and real-time systems.",
-    "Bachelor of Computer Science in Software Engineering from Universitas Ahmad Dahlan (2012–2016). Currently working remotely as a Software Engineer for Corom Music Entertainment, Tokyo.",
+    "Eight years shipping cross-platform mobile and web apps with React Native, Flutter, TypeScript, and Firebase. I work across the stack — UI, APIs, real-time systems, and cloud infrastructure.",
+    "B.S. Software Engineering, Universitas Ahmad Dahlan. Currently leading the Indonesian engineering team at Corom Music Entertainment, Tokyo.",
   ],
   nav: [
     { label: "About", href: "#about" },
     { label: "Skills", href: "#skills" },
-    { label: "Projects", href: "#projects" },
+    { label: "Work", href: "#projects" },
     { label: "Experience", href: "#experience" },
     { label: "Contact", href: "#contact" },
   ],

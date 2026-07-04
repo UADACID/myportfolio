@@ -1,52 +1,25 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { skills } from "@/content/skills";
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { fadeUp, staggerContainer } from "@/lib/motion";
+import { Section } from "@/components/ui/Section";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function Skills() {
   return (
-    <AnimatedSection id="skills">
-      <SectionHeading
-        label="// skills"
-        title="Skills & Technologies"
-        description="Technologies I work with to bring ideas to life."
-      />
+    <Section id="skills">
+      <SectionLabel>Skills</SectionLabel>
 
-      <motion.div
-        className="grid gap-8 sm:grid-cols-2"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={staggerContainer}
-      >
+      <dl className="divide-y divide-border/50">
         {skills.map((group) => (
-          <motion.div
+          <div
             key={group.category}
-            variants={fadeUp}
-            className="rounded-xl border border-border bg-card p-6"
+            className="grid gap-2 py-5 sm:grid-cols-[140px_1fr] sm:gap-8"
           >
-            <h3 className="font-mono text-sm text-accent mb-4">
-              {group.category}
-            </h3>
-            <ul className="flex flex-wrap gap-2">
-              {group.items.map((skill) => (
-                <motion.li
-                  key={skill}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <span className="inline-block rounded-lg border border-border px-3 py-1.5 text-sm text-foreground transition-colors hover:border-accent hover:text-accent">
-                    {skill}
-                  </span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+            <dt className="text-sm text-muted-foreground">{group.category}</dt>
+            <dd className="text-[15px] leading-7 text-foreground">
+              {group.items.join(" · ")}
+            </dd>
+          </div>
         ))}
-      </motion.div>
-    </AnimatedSection>
+      </dl>
+    </Section>
   );
 }

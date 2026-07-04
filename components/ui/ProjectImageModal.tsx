@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
-import { easeOut } from "@/lib/motion";
+import { modalBackdrop, modalPanel } from "@/lib/motion";
 
 type ProjectImageModalProps = {
   open: boolean;
@@ -57,14 +57,6 @@ export function ProjectImageModal({
 
   if (!mounted) return null;
 
-  const backdropTransition = shouldReduceMotion
-    ? { duration: 0.01 }
-    : { duration: 0.3, ease: easeOut };
-
-  const panelTransition = shouldReduceMotion
-    ? { duration: 0.01 }
-    : { duration: 0.4, ease: easeOut };
-
   return createPortal(
     <AnimatePresence>
       {open && (
@@ -72,11 +64,15 @@ export function ProjectImageModal({
           <motion.button
             type="button"
             aria-label="Close image preview"
-            className="absolute inset-0 bg-background/85"
+            className="absolute inset-0 bg-background/90"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={backdropTransition}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0.01 }
+                : { duration: modalBackdrop.duration, ease: modalBackdrop.ease }
+            }
             onClick={onClose}
           />
 
@@ -84,34 +80,36 @@ export function ProjectImageModal({
             role="dialog"
             aria-modal="true"
             aria-label={`${title} preview`}
-            className="relative z-10 w-full max-w-6xl"
+            className="relative z-10 w-full max-w-5xl"
             initial={
               shouldReduceMotion
                 ? { opacity: 0 }
-                : { opacity: 0, scale: 0.94, y: 24 }
+                : { opacity: 0, scale: 0.98 }
             }
             animate={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 1, scale: 1, y: 0 }
+              shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
             }
             exit={
               shouldReduceMotion
                 ? { opacity: 0 }
-                : { opacity: 0, scale: 0.96, y: 16 }
+                : { opacity: 0, scale: 0.98 }
             }
-            transition={panelTransition}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0.01 }
+                : { duration: modalPanel.duration, ease: modalPanel.ease }
+            }
           >
             <button
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="absolute -top-3 -right-3 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-muted shadow-lg transition-colors hover:text-foreground hover:border-accent sm:-top-4 sm:-right-4"
+              className="absolute -right-2 -top-2 z-20 flex h-8 w-8 items-center justify-center rounded-md border border-border bg-surface-elevated text-muted transition-colors hover:text-foreground sm:-right-3 sm:-top-3"
             >
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4" />
             </button>
 
-            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
+            <div className="overflow-hidden rounded-lg border border-border/80 bg-surface-elevated">
               <div className="relative max-h-[85vh] w-full">
                 <Image
                   src={src}
@@ -119,12 +117,12 @@ export function ProjectImageModal({
                   width={1920}
                   height={1200}
                   className="h-auto max-h-[85vh] w-full object-contain"
-                  sizes="(max-width: 768px) 100vw, 1152px"
+                  sizes="(max-width: 768px) 100vw, 1024px"
                   priority
                 />
               </div>
-              <div className="border-t border-border px-4 py-3 sm:px-6">
-                <p className="font-mono text-sm text-accent">{title}</p>
+              <div className="border-t border-border/50 px-4 py-3 sm:px-5">
+                <p className="text-sm text-muted">{title}</p>
               </div>
             </div>
           </motion.div>
