@@ -48,12 +48,6 @@ export function Contact() {
           {site.email}
         </motion.a>
 
-        {"phone" in site && site.phone ? (
-          <motion.p variants={fadeUp} className="mt-4 text-sm text-muted">
-            {site.phone}
-          </motion.p>
-        ) : null}
-
         <motion.div
           variants={fadeUp}
           className="mt-8 flex items-center justify-center gap-4"

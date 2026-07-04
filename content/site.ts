@@ -4,7 +4,6 @@ export const site = {
   tagline:
     "8+ years building cross-platform mobile and web applications with React Native, Flutter, TypeScript, and Firebase.",
   email: "pratamasetya99@gmail.com",
-  phone: "+62 856-4156-0183",
   location: "Yogyakarta, Indonesia",
   available: true,
   bio: [
