@@ -2,6 +2,7 @@ export type Project = {
   title: string;
   description: string;
   tech: string[];
+  image?: string;
   github?: string;
   live?: string;
   featured?: boolean;
@@ -9,31 +10,58 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: "Chat Application Platform",
+    title: "Corom — Live Venue Platform",
     description:
-      "Architected and developed a chat application with real-time messaging, project management features, and scalable backend infrastructure.",
-    tech: ["Meteor.js", "React Native", "MongoDB"],
+      "Corom lets anyone create their own personal online live venue with real-time chat, emoji reactions, and interactive mini-games. I own backend infrastructure on Google Cloud Platform and lead the Indonesian engineering team, turning product ideas into reliable, scalable experiences end to end.",
+    tech: ["React Native", "Google Cloud", "iOS", "Android"],
+    image: "/projects/corom/cover.png",
     featured: true,
   },
   {
-    title: "Cross-Platform Mobile Apps",
+    title: "Cicle — Management Tools",
     description:
-      "Delivered multiple mobile applications in collaboration with Product and UI/UX teams. Built scalable architectures, reusable component libraries, and mentored developers to accelerate delivery.",
-    tech: ["React Native", "Flutter", "TypeScript"],
+      "Team management and collaboration app with real-time chat, task boards, schedules, and file sharing. Built with Firebase Firestore, Socket.io, Cloud Storage, OneSignal push notifications, Google Sign-In, and GetX state management.",
+    tech: [
+      "React Native",
+      "Flutter",
+      "Firebase",
+      "Socket.io",
+      "OneSignal",
+      "GetX",
+      "Dio",
+    ],
+    image: "/projects/cicle/cover.png",
     featured: true,
   },
   {
-    title: "React Native to Flutter Migration",
+    title: "Alfamind — E-commerce App",
     description:
-      "Led the complete migration of a core mobile application from React Native to Flutter, rebuilding the platform from scratch with improved performance and maintainability.",
-    tech: ["Flutter", "React Native", "Dart"],
+      "E-commerce mobile app where I sliced Figma designs into React Native and integrated backend APIs. Owned the transaction, shipping, and account modules with Redux state management, Firebase push notifications, Cloud Storage, Socket.io, Google Sign-In, and Axios.",
+    tech: [
+      "React Native",
+      "Redux",
+      "Firebase",
+      "Socket.io",
+      "Axios",
+      "API Integration",
+    ],
+    image: "/projects/alfamind/cover.png",
     featured: true,
   },
   {
-    title: "Enterprise Mobile Products",
+    title: "Zipkos — Property Application",
     description:
-      "Built and maintained production mobile software products for enterprise clients, focusing on reliability, performance, and long-term maintainability.",
-    tech: ["React Native", "JavaScript", "REST APIs"],
+      "Property rental app for finding and booking rooms and spaces. I sliced Figma designs into React Native for iOS and Android and integrated backend APIs for listings, maps, and user flows.",
+    tech: ["React Native", "iOS", "Android", "API Integration"],
+    image: "/projects/zipkos/cover.png",
+    featured: true,
+  },
+  {
+    title: "MusikBagus — Music Application",
+    description:
+      "Music platform app featuring releases, events, and artist content. I migrated the codebase from React Native to Flutter and connected the app to backend services through REST APIs, working in an agile Scrum workflow.",
+    tech: ["Flutter", "Dart", "React Native", "API Integration", "Scrum"],
+    image: "/projects/musikbagus/cover.png",
     featured: true,
   },
 ];
