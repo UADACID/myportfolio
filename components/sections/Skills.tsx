@@ -1,25 +1,48 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { skills } from "@/content/skills";
-import { Section } from "@/components/ui/Section";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export function Skills() {
   return (
-    <Section id="skills">
-      <SectionLabel>Skills</SectionLabel>
+    <AnimatedSection id="skills">
+      <SectionHeading
+        label="// skills"
+        title="Skills & Technologies"
+        description="Technologies I work with to bring ideas to life."
+      />
 
-      <dl className="divide-y divide-border/50">
+      <motion.div
+        className="grid gap-6 sm:grid-cols-2"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={staggerContainer}
+      >
         {skills.map((group) => (
-          <div
+          <motion.div
             key={group.category}
-            className="grid gap-2 py-5 sm:grid-cols-[140px_1fr] sm:gap-8"
+            variants={fadeUp}
+            className="rounded-lg border border-border bg-surface-elevated p-6 shadow-sm"
           >
-            <dt className="text-sm text-muted-foreground">{group.category}</dt>
-            <dd className="text-[15px] leading-7 text-foreground">
-              {group.items.join(" · ")}
-            </dd>
-          </div>
+            <h3 className="mb-4 font-mono text-xs text-accent">
+              {group.category}
+            </h3>
+            <ul className="flex flex-wrap gap-2">
+              {group.items.map((skill) => (
+                <li key={skill}>
+                  <span className="inline-block rounded-md border border-border px-3 py-1.5 text-sm text-foreground transition-colors hover:border-accent hover:text-accent">
+                    {skill}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
         ))}
-      </dl>
-    </Section>
+      </motion.div>
+    </AnimatedSection>
   );
 }

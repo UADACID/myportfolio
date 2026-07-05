@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
+import { ActionButton } from "@/components/ui/ActionButton";
 import { modalBackdrop, modalPanel } from "@/lib/motion";
 
 type ProjectImageModalProps = {
@@ -61,10 +62,8 @@ export function ProjectImageModal({
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
-          <motion.button
-            type="button"
-            aria-label="Close image preview"
-            className="absolute inset-0 bg-background/90"
+          <motion.div
+            className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -73,8 +72,14 @@ export function ProjectImageModal({
                 ? { duration: 0.01 }
                 : { duration: modalBackdrop.duration, ease: modalBackdrop.ease }
             }
-            onClick={onClose}
-          />
+          >
+            <ActionButton
+              aria-label="Close image preview"
+              instant
+              onClick={onClose}
+              className="h-full w-full bg-background/90"
+            />
+          </motion.div>
 
           <motion.div
             role="dialog"
@@ -100,14 +105,13 @@ export function ProjectImageModal({
                 : { duration: modalPanel.duration, ease: modalPanel.ease }
             }
           >
-            <button
-              type="button"
+            <ActionButton
               onClick={onClose}
               aria-label="Close"
               className="absolute -right-2 -top-2 z-20 flex h-8 w-8 items-center justify-center rounded-md border border-border bg-surface-elevated text-muted transition-colors hover:text-foreground sm:-right-3 sm:-top-3"
             >
               <X className="h-4 w-4" />
-            </button>
+            </ActionButton>
 
             <div className="overflow-hidden rounded-lg border border-border/80 bg-surface-elevated">
               <div className="relative max-h-[85vh] w-full">

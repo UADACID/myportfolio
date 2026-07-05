@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { fadeUp } from "@/lib/motion";
 import type { Experience } from "@/content/experience";
 
 type ExperienceItemProps = {
@@ -7,7 +11,10 @@ type ExperienceItemProps = {
 
 export function ExperienceItem({ item, isLast }: ExperienceItemProps) {
   return (
-    <li className="relative pl-7 pb-10 last:pb-0">
+    <motion.li
+      className="relative pl-7 pb-10 last:pb-0"
+      variants={fadeUp}
+    >
       {!isLast && (
         <span
           className="absolute left-[3px] top-2 h-[calc(100%-4px)] w-px bg-border"
@@ -32,6 +39,6 @@ export function ExperienceItem({ item, isLast }: ExperienceItemProps) {
         )}
       </p>
       <p className="mt-3 text-[15px] leading-7 text-muted">{item.summary}</p>
-    </li>
+    </motion.li>
   );
 }

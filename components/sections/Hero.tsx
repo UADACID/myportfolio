@@ -1,76 +1,105 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
+import { GitHubIcon } from "@/components/ui/BrandIcons";
+import { Mail } from "lucide-react";
 import { site } from "@/content/site";
-import { TextLink } from "@/components/ui/TextLink";
-import { heroItem, heroStagger } from "@/lib/motion";
+import { ActionButton } from "@/components/ui/ActionButton";
+import { fadeUp, heroStagger } from "@/lib/motion";
+
+const socialIcons = {
+  github: GitHubIcon,
+  mail: Mail,
+} as const;
 
 export function Hero() {
   return (
-    <section className="flex min-h-[85vh] items-end px-6 pb-20 pt-28 sm:items-center sm:pb-28">
+    <section className="relative flex min-h-screen items-center justify-center px-6 pt-28">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-1/4 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-accent/5 blur-3xl" />
+      </div>
+
       <motion.div
-        className="mx-auto w-full max-w-3xl"
+        className="mx-auto w-full max-w-5xl"
         initial="hidden"
         animate="visible"
         variants={heroStagger}
       >
         <motion.p
-          variants={heroItem}
-          className="mb-8 text-xs text-muted-foreground"
+          variants={fadeUp}
+          className="mb-4 text-sm tracking-[0.02em] text-label"
         >
-          {site.available && (
-            <span className="text-foreground">Open to work</span>
-          )}
-          {site.available && site.location && (
-            <span className="mx-2 text-muted-foreground">·</span>
-          )}
-          {site.location}
+          Hi, my name is
         </motion.p>
 
         <motion.h1
-          variants={heroItem}
-          className="text-5xl font-semibold tracking-[-0.03em] text-foreground sm:text-6xl"
+          variants={fadeUp}
+          className="text-4xl font-semibold tracking-[-0.03em] text-foreground sm:text-6xl lg:text-7xl"
         >
           {site.name}
         </motion.h1>
 
         <motion.p
-          variants={heroItem}
-          className="mt-3 text-lg text-muted sm:text-xl"
+          variants={fadeUp}
+          className="mt-4 text-xl font-medium text-muted sm:text-2xl"
         >
           {site.role}
         </motion.p>
 
         <motion.p
-          variants={heroItem}
-          className="mt-6 max-w-lg text-[15px] leading-7 text-muted"
+          variants={fadeUp}
+          className="mt-6 max-w-xl text-[15px] leading-7 text-muted"
         >
           {site.tagline}
         </motion.p>
 
         <motion.div
-          variants={heroItem}
-          className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3"
+          variants={fadeUp}
+          className="mt-10 flex flex-wrap items-center gap-4"
         >
-          <TextLink href="#projects">View work</TextLink>
-          <TextLink href={`mailto:${site.email}`}>Email</TextLink>
+          <ActionButton
+            href="#projects"
+            className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-accent-foreground"
+          >
+            View My Work
+          </ActionButton>
+          <ActionButton
+            href="#contact"
+            className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+          >
+            Get In Touch
+          </ActionButton>
         </motion.div>
 
         <motion.div
-          variants={heroItem}
-          className="mt-8 flex gap-5 text-sm text-muted"
+          variants={fadeUp}
+          className="mt-10 flex items-center gap-4"
         >
-          {site.social.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target={link.icon === "mail" ? undefined : "_blank"}
-              rel={link.icon === "mail" ? undefined : "noopener noreferrer"}
-              className="transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
+          {site.social.map((link) => {
+            const Icon = socialIcons[link.icon];
+            return (
+              <ActionButton
+                key={link.label}
+                href={link.href}
+                external={link.icon !== "mail"}
+                aria-label={link.label}
+                className="rounded-lg p-2 text-muted transition-colors hover:bg-accent-muted hover:text-accent"
+              >
+                <Icon className="h-5 w-5" />
+              </ActionButton>
+            );
+          })}
+        </motion.div>
+
+        <motion.div variants={fadeUp} className="mt-20 flex justify-center">
+          <ActionButton
+            href="#about"
+            aria-label="Scroll to about section"
+            className="animate-bounce text-muted transition-colors hover:text-accent"
+          >
+            <ArrowDown className="h-5 w-5" />
+          </ActionButton>
         </motion.div>
       </motion.div>
     </section>

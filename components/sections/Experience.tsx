@@ -1,14 +1,28 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { experience } from "@/content/experience";
-import { Section } from "@/components/ui/Section";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ExperienceItem } from "@/components/ui/ExperienceItem";
+import { staggerContainer } from "@/lib/motion";
 
 export function Experience() {
   return (
-    <Section id="experience">
-      <SectionLabel>Experience</SectionLabel>
+    <AnimatedSection id="experience">
+      <SectionHeading
+        label="// experience"
+        title="Work Experience"
+        description="Roles I've held and what I worked on."
+      />
 
-      <ol className="list-none">
+      <motion.ol
+        className="list-none"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={staggerContainer}
+      >
         {experience.map((item, index) => (
           <ExperienceItem
             key={`${item.company}-${item.period}`}
@@ -16,7 +30,7 @@ export function Experience() {
             isLast={index === experience.length - 1}
           />
         ))}
-      </ol>
-    </Section>
+      </motion.ol>
+    </AnimatedSection>
   );
 }
