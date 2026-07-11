@@ -6,6 +6,7 @@ import { GitHubIcon } from "@/components/ui/BrandIcons";
 import { Mail } from "lucide-react";
 import { site } from "@/content/site";
 import { ActionButton } from "@/components/ui/ActionButton";
+import { ViewMyWorkButton } from "@/components/ui/ViewMyWorkButton";
 import { fadeUp, heroStagger } from "@/lib/motion";
 
 const socialIcons = {
@@ -58,12 +59,7 @@ export function Hero() {
           variants={fadeUp}
           className="mt-10 flex flex-wrap items-center gap-4"
         >
-          <ActionButton
-            href="#projects"
-            className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-accent-foreground"
-          >
-            View My Work
-          </ActionButton>
+          <ViewMyWorkButton />
           <ActionButton
             href="#contact"
             className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"

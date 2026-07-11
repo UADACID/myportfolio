@@ -19,14 +19,14 @@ export function Projects() {
       />
 
       <motion.div
-        className="grid gap-6 sm:grid-cols-2"
+        className="grid gap-x-6 gap-y-12 sm:grid-cols-2"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
         variants={staggerContainer}
       >
-        {featured.map((project, index) => (
-          <ProjectCard key={project.title} project={project} index={index} />
+        {featured.map((project) => (
+          <ProjectCard key={project.title} project={project} />
         ))}
       </motion.div>
     </AnimatedSection>
