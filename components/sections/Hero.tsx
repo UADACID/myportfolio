@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowDown, Mail, MapPin } from "lucide-react";
-import { GitHubIcon } from "@/components/ui/BrandIcons";
+import { GitHubIcon, UpworkIcon } from "@/components/ui/BrandIcons";
 import { site } from "@/content/site";
 import { ActionButton } from "@/components/ui/ActionButton";
 import { ViewMyWorkButton } from "@/components/ui/ViewMyWorkButton";
@@ -13,6 +13,7 @@ import { fadeUp, heroStagger } from "@/lib/motion";
 
 const socialIcons = {
   github: GitHubIcon,
+  upwork: UpworkIcon,
   mail: Mail,
 } as const;
 

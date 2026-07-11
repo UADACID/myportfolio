@@ -24,6 +24,11 @@ export const site = {
       icon: "github" as const,
     },
     {
+      label: "Upwork",
+      href: "https://www.upwork.com/freelancers/~016e4dd2b4d813bd1c",
+      icon: "upwork" as const,
+    },
+    {
       label: "Email",
       href: "mailto:pratamasetya99@gmail.com",
       icon: "mail" as const,
