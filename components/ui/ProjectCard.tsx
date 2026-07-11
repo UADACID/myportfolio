@@ -3,82 +3,105 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
-import { GitHubIcon } from "@/components/ui/BrandIcons";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { ProjectImageModal } from "@/components/ui/ProjectImageModal";
-import { ActionButton } from "@/components/ui/ActionButton";
 import { fadeUp } from "@/lib/motion";
 import type { Project } from "@/content/projects";
 
 type ProjectCardProps = {
   project: Project;
+  /** Render as the large, inverse, attention-grabbing bento tile. */
+  highlight?: boolean;
 };
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, highlight = false }: ProjectCardProps) {
   const [imageOpen, setImageOpen] = useState(false);
+  const Arrow = highlight ? ArrowUpRight : ArrowRight;
 
   return (
     <>
-      <motion.article className="group" variants={fadeUp}>
-        {project.image && (
-          <ActionButton
-            instant
-            onClick={() => setImageOpen(true)}
-            aria-label={`View ${project.title} screenshot`}
-            className="relative block w-full cursor-zoom-in overflow-hidden rounded-2xl bg-surface shadow-sm transition-shadow duration-300 group-hover:shadow-md"
-          >
-            <div className="relative aspect-[16/10] w-full">
+      <motion.article
+        variants={fadeUp}
+        className={highlight ? "sm:row-span-2" : ""}
+      >
+        <button
+          type="button"
+          onClick={() => project.image && setImageOpen(true)}
+          aria-label={`View ${project.title}`}
+          className={`group relative flex h-full w-full flex-col overflow-hidden rounded-2xl border text-left transition-all duration-300 ${
+            highlight
+              ? "border-transparent bg-foreground text-background shadow-lg hover:shadow-xl"
+              : "border-border bg-surface/70 text-foreground hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-md"
+          } ${project.image ? "cursor-pointer" : "cursor-default"}`}
+        >
+          {project.image && (
+            <div
+              className={`relative w-full shrink-0 overflow-hidden ${
+                highlight ? "h-1/2 min-h-[220px]" : "aspect-[16/10]"
+              }`}
+            >
               <Image
                 src={project.image}
                 alt={`${project.title} preview`}
                 fill
-                className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 480px"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+                className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+              />
+              <span
+                aria-hidden
+                className={`absolute inset-0 ${
+                  highlight
+                    ? "bg-gradient-to-t from-foreground via-foreground/20 to-transparent"
+                    : "bg-gradient-to-t from-surface/70 to-transparent"
+                }`}
               />
             </div>
-          </ActionButton>
-        )}
+          )}
 
-        <div className="mt-5">
-          <div className="flex items-start justify-between gap-4">
-            <h3 className="text-lg font-semibold tracking-tight text-foreground">
-              {project.title}
+          <div className="relative flex flex-1 flex-col p-6 sm:p-7">
+            <span
+              aria-hidden
+              className={`h-0.5 w-8 rounded-full ${
+                highlight ? "bg-background/60" : "bg-accent"
+              }`}
+            />
+
+            <h3
+              className={`mt-4 font-semibold tracking-tight ${
+                highlight ? "text-2xl sm:text-3xl" : "text-lg"
+              }`}
+            >
+              {project.title.split(" — ")[0]}
             </h3>
 
-            {(project.github || project.live) && (
-              <div className="flex shrink-0 items-center gap-1 text-muted-foreground opacity-70 transition-opacity duration-200 group-hover:opacity-100">
-                {project.github && (
-                  <ActionButton
-                    href={project.github}
-                    external
-                    aria-label={`${project.title} on GitHub`}
-                    className="rounded-lg p-1.5 text-muted transition-colors hover:text-foreground"
-                  >
-                    <GitHubIcon className="h-4 w-4" />
-                  </ActionButton>
-                )}
-                {project.live && (
-                  <ActionButton
-                    href={project.live}
-                    external
-                    aria-label={`${project.title} live demo`}
-                    className="rounded-lg p-1.5 text-muted transition-colors hover:text-foreground"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                  </ActionButton>
-                )}
-              </div>
-            )}
+            <p
+              className={`mt-3 leading-6 ${
+                highlight
+                  ? "max-w-md text-sm text-background/80 line-clamp-4 sm:text-[15px]"
+                  : "text-[13px] text-muted line-clamp-2"
+              }`}
+            >
+              {project.description}
+            </p>
+
+            <div className="mt-auto flex items-end justify-between gap-4 pt-6">
+              <span
+                className={`text-xs font-medium ${
+                  highlight ? "text-background/60" : "text-muted-foreground"
+                }`}
+              >
+                {project.tech.slice(0, highlight ? 4 : 2).join(" · ")}
+              </span>
+              <Arrow
+                className={`h-5 w-5 shrink-0 transition-transform duration-300 ${
+                  highlight
+                    ? "text-background group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    : "text-foreground/70 group-hover:translate-x-1 group-hover:text-accent"
+                }`}
+              />
+            </div>
           </div>
-
-          <p className="mt-2 text-[15px] leading-7 text-muted">
-            {project.description}
-          </p>
-
-          <p className="mt-3 text-sm text-muted-foreground">
-            {project.tech.join(" · ")}
-          </p>
-        </div>
+        </button>
       </motion.article>
 
       {project.image && (

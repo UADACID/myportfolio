@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Mail } from "lucide-react";
 import { GitHubIcon } from "@/components/ui/BrandIcons";
-import { Mail } from "lucide-react";
 import { site } from "@/content/site";
 import { ActionButton } from "@/components/ui/ActionButton";
 import { ViewMyWorkButton } from "@/components/ui/ViewMyWorkButton";
+import { HeroShowcase } from "@/components/ui/HeroShowcase";
+import { HeroSkills } from "@/components/ui/HeroSkills";
 import { fadeUp, heroStagger } from "@/lib/motion";
 
 const socialIcons = {
@@ -16,21 +17,18 @@ const socialIcons = {
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center px-6 pt-28">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-accent/5 blur-3xl" />
-      </div>
-
+    <section className="relative z-10 flex min-h-svh items-center overflow-visible px-6 pt-28 pb-24">
       <motion.div
-        className="mx-auto w-full max-w-5xl"
+        className="relative z-10 mx-auto w-full max-w-5xl"
         initial="hidden"
         animate="visible"
         variants={heroStagger}
       >
         <motion.p
           variants={fadeUp}
-          className="mb-4 text-sm tracking-[0.02em] text-label"
+          className="mb-4 inline-flex items-center gap-2.5 font-mono text-sm font-medium text-accent"
         >
+          <span className="h-px w-7 bg-accent" aria-hidden />
           Hi, my name is
         </motion.p>
 
@@ -43,14 +41,14 @@ export function Hero() {
 
         <motion.p
           variants={fadeUp}
-          className="mt-4 text-xl font-medium text-muted sm:text-2xl"
+          className="mt-4 bg-[linear-gradient(90deg,var(--accent),color-mix(in_srgb,var(--accent)_55%,var(--foreground)))] bg-clip-text text-xl font-semibold text-transparent sm:text-2xl"
         >
           {site.role}
         </motion.p>
 
         <motion.p
           variants={fadeUp}
-          className="mt-6 max-w-xl text-[15px] leading-7 text-muted"
+          className="mt-6 max-w-xl text-[15px] leading-7 text-foreground/80"
         >
           {site.tagline}
         </motion.p>
@@ -88,7 +86,26 @@ export function Hero() {
           })}
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-20 flex justify-center">
+        <motion.div variants={fadeUp} className="mt-14">
+          <p className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-foreground/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+            Recent work
+          </p>
+          <HeroShowcase />
+        </motion.div>
+
+        <motion.div variants={fadeUp} className="mt-6">
+          <p className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-foreground/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+            Skills
+          </p>
+          <HeroSkills />
+        </motion.div>
+
+        <motion.div
+          variants={fadeUp}
+          className="mt-12 flex justify-center"
+        >
           <ActionButton
             href="#about"
             aria-label="Scroll to about section"

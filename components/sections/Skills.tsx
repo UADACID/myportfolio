@@ -8,7 +8,7 @@ import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export function Skills() {
   return (
-    <AnimatedSection id="skills">
+    <AnimatedSection id="skills" tone="skills">
       <SectionHeading
         label="// skills"
         title="Skills & Technologies"

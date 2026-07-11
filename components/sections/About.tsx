@@ -15,7 +15,7 @@ export function About() {
     .slice(0, 2);
 
   return (
-    <AnimatedSection id="about">
+    <AnimatedSection id="about" tone="about">
       <SectionHeading label="// about" title="About Me" />
 
       <motion.div
@@ -38,7 +38,7 @@ export function About() {
             <motion.p
               key={paragraph.slice(0, 40)}
               variants={fadeUp}
-              className="text-[15px] leading-7 text-muted"
+              className="text-[15px] leading-7 text-foreground/80"
             >
               {paragraph}
             </motion.p>
@@ -48,7 +48,7 @@ export function About() {
             variants={fadeUp}
             className="flex flex-wrap items-center gap-3 pt-2"
           >
-            <span className="inline-flex items-center gap-1.5 text-sm text-muted">
+            <span className="inline-flex items-center gap-1.5 text-sm text-foreground/70">
               <MapPin className="h-4 w-4 text-accent" />
               {site.location}
             </span>

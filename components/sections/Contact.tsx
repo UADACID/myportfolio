@@ -16,7 +16,7 @@ const socialIcons = {
 
 export function Contact() {
   return (
-    <AnimatedSection id="contact">
+    <AnimatedSection id="contact" tone="contact">
       <SectionHeading
         label="// contact"
         title="Get In Touch"

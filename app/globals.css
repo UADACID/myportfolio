@@ -3,18 +3,26 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
+  --background: #f4f2ef;
   --foreground: #171717;
   --muted: #525252;
   --muted-foreground: #737373;
   --border: rgba(0, 0, 0, 0.12);
-  --surface: #f5f5f5;
-  --surface-elevated: #ebebeb;
+  --surface: #ebe8e4;
+  --surface-elevated: #e3dfda;
   --accent: #2563eb;
   --accent-foreground: #ffffff;
   --accent-muted: rgba(37, 99, 235, 0.12);
   --label: #737373;
   --nav-active: #171717;
+  --section-hero: #e8eef5;
+  --section-about: #f0ebe6;
+  --section-skills: #e9ecef;
+  --section-projects: #f3efe9;
+  --section-experience: #e8eef2;
+  --section-contact: #e6ebf2;
+  --cta-shadow: 0 8px 24px rgba(37, 99, 235, 0.35), 0 2px 8px rgba(37, 99, 235, 0.2);
+  --cta-shadow-hover: 0 12px 32px rgba(37, 99, 235, 0.45), 0 4px 12px rgba(37, 99, 235, 0.25);
   --glass-bg: rgba(255, 255, 255, 0.42);
   --glass-bg-scrolled: rgba(255, 255, 255, 0.55);
   --glass-blur: 40px;
@@ -37,18 +45,26 @@
 }
 
 .dark {
-  --background: #0a0a0a;
+  --background: #12141a;
   --foreground: #ededed;
   --muted: #a1a1a1;
   --muted-foreground: #737373;
   --border: rgba(255, 255, 255, 0.08);
-  --surface: #111111;
-  --surface-elevated: #161616;
+  --surface: #181b22;
+  --surface-elevated: #1e222b;
   --accent: #60a5fa;
   --accent-foreground: #0a0a0a;
   --accent-muted: rgba(96, 165, 250, 0.1);
   --label: #86868b;
   --nav-active: #f5f5f7;
+  --section-hero: #151a24;
+  --section-about: #171a20;
+  --section-skills: #141820;
+  --section-projects: #1a1c22;
+  --section-experience: #16191f;
+  --section-contact: #151920;
+  --cta-shadow: 0 8px 28px rgba(96, 165, 250, 0.4), 0 2px 10px rgba(96, 165, 250, 0.25);
+  --cta-shadow-hover: 0 14px 36px rgba(96, 165, 250, 0.5), 0 4px 14px rgba(96, 165, 250, 0.3);
   --glass-bg: rgba(22, 22, 23, 0.45);
   --glass-bg-scrolled: rgba(28, 28, 30, 0.58);
   --glass-blur: 40px;
@@ -87,6 +103,12 @@
   --color-label: var(--label);
   --color-nav-active: var(--nav-active);
   --color-card: var(--surface-elevated);
+  --color-section-hero: var(--section-hero);
+  --color-section-about: var(--section-about);
+  --color-section-skills: var(--section-skills);
+  --color-section-projects: var(--section-projects);
+  --color-section-experience: var(--section-experience);
+  --color-section-contact: var(--section-contact);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -154,4 +176,61 @@ body {
 .nav-glass-scrolled {
   background: var(--glass-bg-scrolled);
   box-shadow: var(--glass-shadow-scrolled);
+}
+
+.cta-elevated {
+  box-shadow: var(--cta-shadow);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.2s ease;
+}
+
+.cta-elevated:hover:not(:disabled) {
+  box-shadow: var(--cta-shadow-hover);
+}
+
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 9%,
+    #000 91%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 9%,
+    #000 91%,
+    transparent 100%
+  );
+}
+
+.hero-marquee-track {
+  animation: hero-marquee 36s linear infinite;
+  will-change: transform;
+}
+
+.hero-marquee-track--reverse {
+  animation-direction: reverse;
+  animation-duration: 30s;
+}
+
+.hero-marquee-mask:hover .hero-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-marquee-track {
+    animation: none;
+  }
 }

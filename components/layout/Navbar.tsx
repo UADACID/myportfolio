@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { site } from "@/content/site";
 import { ActionButton } from "@/components/ui/ActionButton";
 import { ThemeToggle } from "./ThemeToggle";
@@ -11,6 +11,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -62,21 +63,50 @@ export function Navbar() {
             {site.name.split(" ")[0].toLowerCase()}.
           </ActionButton>
 
-          <ul className="hidden items-center gap-0.5 md:flex">
-            {site.nav.map((item) => (
-              <li key={item.href}>
-                <ActionButton
-                  href={item.href}
-                  className={`rounded-lg px-3 py-1.5 text-sm transition-colors ${
-                    activeSection === item.href.replace("#", "")
-                      ? "font-medium text-nav-active"
-                      : "text-muted hover:text-foreground"
-                  }`}
-                >
-                  {item.label}
-                </ActionButton>
-              </li>
-            ))}
+          <ul className="hidden items-center gap-1 md:flex">
+            {site.nav.map((item) => {
+              const id = item.href.replace("#", "");
+              const isActive = activeSection === id;
+
+              return (
+                <li key={item.href} className="relative">
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active-glow"
+                      className="absolute -inset-x-1 -inset-y-0.5 rounded-xl bg-accent/12 shadow-[0_0_24px_color-mix(in_srgb,var(--accent)_35%,transparent)] dark:bg-accent/18"
+                      transition={
+                        reduced
+                          ? { duration: 0.01 }
+                          : { type: "spring", stiffness: 320, damping: 28 }
+                      }
+                    />
+                  )}
+
+                  <motion.div
+                    animate={{
+                      scale: reduced ? 1 : isActive ? 1.12 : 1,
+                    }}
+                    transition={
+                      reduced
+                        ? { duration: 0.01 }
+                        : { type: "spring", stiffness: 300, damping: 26 }
+                    }
+                    className="relative z-10"
+                  >
+                    <ActionButton
+                      href={item.href}
+                      className={`rounded-lg px-3.5 py-1.5 text-sm transition-colors ${
+                        isActive
+                          ? "font-semibold tracking-tight text-nav-active"
+                          : "text-muted hover:text-foreground"
+                      }`}
+                    >
+                      {item.label}
+                    </ActionButton>
+                  </motion.div>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="flex items-center gap-1">
@@ -106,21 +136,26 @@ export function Navbar() {
               className="overflow-hidden border-t border-(--glass-divider) md:hidden"
             >
               <ul className="flex flex-col gap-0.5 p-2">
-                {site.nav.map((item) => (
-                  <li key={item.href}>
-                    <ActionButton
-                      href={item.href}
-                      onAfterAction={() => setMobileOpen(false)}
-                      className={`block w-full rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
-                        activeSection === item.href.replace("#", "")
-                          ? "bg-surface font-medium text-nav-active"
-                          : "text-muted hover:bg-surface/60 hover:text-foreground"
-                      }`}
-                    >
-                      {item.label}
-                    </ActionButton>
-                  </li>
-                ))}
+                {site.nav.map((item) => {
+                  const id = item.href.replace("#", "");
+                  const isActive = activeSection === id;
+
+                  return (
+                    <li key={item.href}>
+                      <ActionButton
+                        href={item.href}
+                        onAfterAction={() => setMobileOpen(false)}
+                        className={`block w-full rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
+                          isActive
+                            ? "bg-accent/15 font-semibold text-nav-active shadow-[0_0_20px_color-mix(in_srgb,var(--accent)_25%,transparent)]"
+                            : "text-muted hover:bg-surface/60 hover:text-foreground"
+                        }`}
+                      >
+                        {item.label}
+                      </ActionButton>
+                    </li>
+                  );
+                })}
               </ul>
             </motion.div>
           )}

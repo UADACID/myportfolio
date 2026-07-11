@@ -9,7 +9,7 @@ import { staggerContainer } from "@/lib/motion";
 
 export function Experience() {
   return (
-    <AnimatedSection id="experience">
+    <AnimatedSection id="experience" tone="experience">
       <SectionHeading
         label="// experience"
         title="Work Experience"

@@ -173,7 +173,7 @@ export function ViewMyWorkButton() {
         onClick={handleClick}
         disabled={isAnimating}
         aria-label="View my work"
-        className="relative inline-flex items-center justify-center overflow-hidden bg-accent text-sm font-medium text-accent-foreground transition-transform hover:scale-[1.02] disabled:pointer-events-none"
+        className="cta-elevated relative inline-flex items-center justify-center overflow-hidden bg-accent text-sm font-medium text-accent-foreground transition-transform hover:scale-[1.02] disabled:pointer-events-none"
       >
         <span ref={labelRef} className="inline-flex items-center gap-2 px-6 py-3">
           View My Work

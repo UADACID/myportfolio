@@ -12,17 +12,17 @@ type ExperienceItemProps = {
 export function ExperienceItem({ item, isLast }: ExperienceItemProps) {
   return (
     <motion.li
-      className="relative pl-7 pb-10 last:pb-0"
+      className="group relative pl-7 pb-10 last:pb-0"
       variants={fadeUp}
     >
       {!isLast && (
         <span
-          className="absolute left-[3px] top-2 h-[calc(100%-4px)] w-px bg-border"
+          className="absolute left-[3px] top-2 h-[calc(100%-4px)] w-px bg-border transition-colors duration-300 group-hover:bg-accent/40"
           aria-hidden
         />
       )}
       <span
-        className="absolute left-0 top-[7px] h-[7px] w-[7px] rounded-full bg-foreground"
+        className="absolute left-0 top-[7px] h-[7px] w-[7px] rounded-full bg-foreground shadow-[0_0_0_0_transparent] transition-all duration-300 group-hover:scale-125 group-hover:bg-accent group-hover:shadow-[0_0_10px_2px_var(--accent)]"
         aria-hidden
       />
 
