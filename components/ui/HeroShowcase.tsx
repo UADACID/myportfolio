@@ -1,15 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { projects } from "@/content/projects";
+import { projects, featuredProject } from "@/content/projects";
 import { followHref } from "@/lib/motion";
 
 /**
  * Compact auto-scrolling showcase of project covers for the Hero — a subtle
  * "storefront" strip with faded edges. Pauses on hover, respects reduced motion.
+ * Excludes the spotlighted featured project (shown in HeroFeatured).
  */
 export function HeroShowcase() {
-  const items = projects.filter((p) => p.image);
+  const items = projects.filter(
+    (p) => p.image && p.title !== featuredProject?.title
+  );
   if (items.length === 0) return null;
 
   // Duplicate for a seamless -50% loop
@@ -29,13 +32,13 @@ export function HeroShowcase() {
               href="#projects"
               onClick={goToProjects}
               aria-label={`View ${project.title} in projects`}
-              className="group relative block h-32 w-48 overflow-hidden rounded-lg ring-1 ring-black/10 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:ring-accent/60 dark:ring-white/10"
+              className="group relative block h-24 w-40 overflow-hidden rounded-lg ring-1 ring-black/10 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:ring-accent/60 dark:ring-white/10"
             >
               <Image
                 src={project.image!}
                 alt=""
                 fill
-                sizes="192px"
+                sizes="160px"
                 className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
               />
               <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />

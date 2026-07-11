@@ -220,11 +220,6 @@ body {
   will-change: transform;
 }
 
-.hero-marquee-track--reverse {
-  animation-direction: reverse;
-  animation-duration: 30s;
-}
-
 .hero-marquee-mask:hover .hero-marquee-track {
   animation-play-state: paused;
 }

@@ -65,3 +65,6 @@ export const projects: Project[] = [
     featured: true,
   },
 ];
+
+/** The single project spotlighted in the Hero right column. */
+export const featuredProject = projects.find((p) => p.featured) ?? projects[0];

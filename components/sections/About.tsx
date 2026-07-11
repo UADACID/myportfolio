@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 import { site } from "@/content/site";
@@ -8,14 +9,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export function About() {
-  const initials = site.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .slice(0, 2);
-
   return (
-    <AnimatedSection id="about" tone="about">
+    <AnimatedSection id="about" tone="about" className="pb-36">
       <SectionHeading label="// about" title="About Me" />
 
       <motion.div
@@ -27,10 +22,15 @@ export function About() {
       >
         <motion.div
           variants={fadeUp}
-          className="flex h-32 w-32 shrink-0 items-center justify-center rounded-2xl border border-border bg-accent-muted font-mono text-3xl font-semibold text-accent"
-          aria-hidden
+          className="relative aspect-[3/4] w-40 shrink-0 overflow-hidden rounded-2xl border border-border shadow-md sm:w-48"
         >
-          {initials}
+          <Image
+            src="/about/portrait.png"
+            alt={`Portrait of ${site.name}`}
+            fill
+            sizes="(max-width: 640px) 160px, 192px"
+            className="object-cover object-center"
+          />
         </motion.div>
 
         <div className="flex-1 space-y-4">
